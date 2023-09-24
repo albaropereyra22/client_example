@@ -17,27 +17,7 @@ int main()
     trantor::Logger::setLogLevel(trantor::Logger::kTrace);
     {
         auto client = HttpClient::newHttpClient("http://www.baidu.com");
-        client->setSockOptCallback([](int fd) {
-            std::cout << "setSockOptCallback:" << fd << std::endl;
-#ifdef __linux__
-            int optval = 10;
-            ::setsockopt(fd,
-                         SOL_TCP,
-                         TCP_KEEPCNT,
-                         &optval,
-                         static_cast<socklen_t>(sizeof optval));
-            ::setsockopt(fd,
-                         SOL_TCP,
-                         TCP_KEEPIDLE,
-                         &optval,
-                         static_cast<socklen_t>(sizeof optval));
-            ::setsockopt(fd,
-                         SOL_TCP,
-                         TCP_KEEPINTVL,
-                         &optval,
-                         static_cast<socklen_t>(sizeof optval));
-#endif
-        });
+        
 
         auto req = HttpRequest::newHttpRequest();
         req->setMethod(drogon::Get);
